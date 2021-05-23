@@ -9,7 +9,6 @@ import Home from './views/Home';
 //Redux
 import { Provider } from 'react-redux'
 import generateStore from './redux/store'
-import EditPost from './components/EditPost';
 
 function App() {
 

@@ -31,11 +31,12 @@ export default function NewPost() {
     window.location.replace("/") 
    }
 
-  return (
+  return (<>
+    <Button variant="warning" className="mx-4" onClick={handleShow}>
+    <i className="bi bi-pencil"></i>
+      </Button>
     <div className='d-flex justify-content-center row  '>
-      <Button className='col-6 col-lg-2 ' variant="primary" onClick={handleShow}>
-      <i className="bi bi-pencil"></i>
-        </Button>
+      
 
       <Modal
         show={show}
@@ -45,7 +46,7 @@ export default function NewPost() {
         centered
       >
         <Modal.Header closeButton className='d-flex justify-content-center gap-5'>
-          <Modal.Title className='text-decoration-underline'> <i className="bi bi-plus-circle"></i>  NEW POST</Modal.Title>
+          <Modal.Title className='text-decoration-underline'> <i className="bi bi-plus-circle"></i>  EDIT POST</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit}>
@@ -71,6 +72,7 @@ export default function NewPost() {
 
       </Modal>
     </div>
+    </>
   );
 }
 
