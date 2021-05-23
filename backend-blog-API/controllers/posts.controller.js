@@ -5,7 +5,7 @@ const cloudinary = require('../helpers/cloudinary.config')
 const fs = require('fs-extra');
 
 postCtrl.getAllPosts = async (req, res) => {
-    const posts = await Post.findAll({ include: Category });
+    const posts = await Post.findAll();
     res.json(posts);
 
 }
@@ -34,7 +34,12 @@ postCtrl.newPost = async (req, res) => {
 
 }
 postCtrl.getPost = async (req, res) => {
-    const post = await Post.findOne({ where: { id: req.params.id }, include: Category });
+    const post = await Post.findOne({
+        where: { id: req.params.id }, include: {
+            model: Category,
+            attributes: ['name']
+        }
+    });
     res.status(200).json(post);
 }
 
@@ -47,14 +52,13 @@ postCtrl.deletePost = async (req, res) => {
 
 postCtrl.updatePost = async (req, res) => {
     const post = await Post.findOne({ where: { id: req.params.id } })
-    const { title, content, category } = req.body;
+    const { title, content } = req.body;
     try {
         const result = await cloudinary.v2.uploader.upload(req.file.path);
         let imageUrl = result.secure_url;
         await post.update({
             title,
             content,
-            category,
             imageUrl
         })
         res.json('post upload');

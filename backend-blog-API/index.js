@@ -32,6 +32,8 @@ app.use(multer({storage}).single('imageUrl'));
 
 //Routes
  app.use('/api/posts', require('./routes/posts.routes'));
+ app.use('/api/category', require('./routes/category.routes'));
+
 
 //Static files
 app.use(express.static(path.join(__dirname, 'public')))
