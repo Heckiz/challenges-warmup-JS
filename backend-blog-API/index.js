@@ -32,7 +32,9 @@ app.use(multer({storage}).single('imageUrl'));
 
 //Routes
  app.use('/api/posts', require('./routes/posts.routes'));
- app.use('/api/category', require('./routes/category.routes'));
+ app.use('/api/categories', require('./routes/categories.routes'));
+ app.use('/api/hashtags', require('./routes/hashtags.routes'));
+
 
 
 //Static files

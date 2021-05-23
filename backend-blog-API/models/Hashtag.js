@@ -1,5 +1,5 @@
 module.exports = (sequelize, type) => {
-    const Category = sequelize.define('category', {
+    const Hashtag = sequelize.define('hashtag', {
         id: {
             type: type.INTEGER,
             allowNull: false,
@@ -15,5 +15,5 @@ module.exports = (sequelize, type) => {
     })
     
     
-    return Category;
+    return Hashtag;
     };

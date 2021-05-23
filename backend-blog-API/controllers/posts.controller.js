@@ -1,6 +1,7 @@
 const postCtrl = {};
-const { Post, Category } = require('../database/database')
+const { Post, Category, Hashtag } = require('../database/database')
 const { createCategory } = require('../controllers/category.controller')
+const { createHashtag } = require('../controllers/hashtag.controller')
 const cloudinary = require('../helpers/cloudinary.config')
 const fs = require('fs-extra');
 
@@ -10,7 +11,7 @@ postCtrl.getAllPosts = async (req, res) => {
 
 }
 postCtrl.newPost = async (req, res) => {
-    const { title, content, category } = req.body
+    const { title, content, category, hashtag } = req.body
 
     try {
         const result = await cloudinary.v2.uploader.upload(req.file.path);
@@ -22,7 +23,9 @@ postCtrl.newPost = async (req, res) => {
             imageUrl
         })
         const cat = await createCategory(category);
-        post.addCategory(cat)
+        const hash = await createHashtag(hashtag);
+        post.addCategory(cat);
+        post.addHashtag(hash);
 
         await fs.unlink(req.file.path);
         res.json('post upload');
@@ -35,10 +38,15 @@ postCtrl.newPost = async (req, res) => {
 }
 postCtrl.getPost = async (req, res) => {
     const post = await Post.findOne({
-        where: { id: req.params.id }, include: {
+        where: { id: req.params.id }, 
+        include: [{
+            model: Hashtag,
+            attributes: ['name']
+        },{
             model: Category,
             attributes: ['name']
-        }
+        }]
+        
     });
     res.status(200).json(post);
 }
