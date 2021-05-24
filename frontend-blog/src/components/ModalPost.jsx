@@ -44,15 +44,13 @@ export default function ModalPost(props) {
             </Card.Body>
             <Card.Footer className="row mt-4 ">
               <div className="col-6 col-sm-8 text-muted text-center text-lowercase">@loremIpsum.blog</div>
-              <div className="col-6 col-sm-4  position-relative">
-              <div className="position-absolute end-0">
-                  <EditPost variant="warning" className="text-decoration-none mx-2" />
+              <div className="col-6 col-sm-4 d-flex justify-content-end">
+                  <EditPost variant="warning" className="text-decoration-none" />
                   <Button variant="danger" onClick={async (e) => {
                   e.preventDefault();
                   dispatch(deletePost(props.id));
                   window.location.replace('/');
                 }}> <i className="bi bi-trash"></i></Button>
-              </div>
               </div>
 
             </Card.Footer>

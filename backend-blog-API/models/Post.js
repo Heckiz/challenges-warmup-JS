@@ -17,10 +17,6 @@ const Post = sequelize.define('post', {
     imageUrl:{
         type: type.STRING,
         allowNull: false
-    },
-    category:{
-        type: type.STRING,
-        allowNull: false
     }
 },{
     timestamps: true

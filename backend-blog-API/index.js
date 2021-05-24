@@ -19,7 +19,7 @@ app.set('port', process.env.PORT || 3000);
 //Middlewares
 app.use(cors());
 app.use(morgan('dev'));
-app.use(express.urlencoded({ extended: false }))
+app.use(express.urlencoded({ extended: true }))
 app.use(express.json()) 
 const storage = multer.diskStorage({
     destination: path.join(__dirname, 'public/img/posts'),
@@ -29,8 +29,13 @@ const storage = multer.diskStorage({
     }
 }) 
 app.use(multer({storage}).single('imageUrl'));
+
 //Routes
  app.use('/api/posts', require('./routes/posts.routes'));
+ app.use('/api/categories', require('./routes/categories.routes'));
+ app.use('/api/hashtags', require('./routes/hashtags.routes'));
+
+
 
 //Static files
 app.use(express.static(path.join(__dirname, 'public')))
